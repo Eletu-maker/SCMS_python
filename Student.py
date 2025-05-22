@@ -1,10 +1,14 @@
-
+from Course import Course
 class Student:
     def __init__(self, email, password, school):
         self.email = email
         self.password = password
         self.school = school
         self.courses_enrolled = []
+        self.name = ""
+
+    def set_name(self, name):
+        self.name = name
 
 
 
@@ -16,8 +20,11 @@ class Student:
 
 
     def enroll_course(self, name, point):
-        for course in self.school.get_courses():
-            if course.getCourse() == name and course.getPoint() == point:
+        course = Course()
+        course.setCourse(name)
+        course.setPoint(point)
+        for acourse in self.school.get_courses():
+            if acourse == course:
                 if course in self.courses_enrolled:
                     raise ValueError("Already enrolled")
                 return self.courses_enrolled.append(course)

@@ -5,15 +5,19 @@ class Instructors:
 
     def register_instructor(self, email, password):
         if self.__check_instructor(email):
-            raise ValueError("Instructor already registered")
+            raise ValueError("User already registered")
         stud = Instructor(email, password, self.school)
         self.school.add_instructor(stud)
 
     def __check_instructor(self, email):
+        check = False
+        for student in self.school.get_students():
+            if student.email == email:
+                check = True
         for instructor in self.school.get_instructors():
             if instructor.email == email:
-                return True
-        return False
+                check = True
+        return check
 
 
 

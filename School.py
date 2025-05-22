@@ -2,6 +2,7 @@ from Students import Students
 from Instructors import Instructors
 class School:
     def __init__(self):
+
         self._students_list = []
         self.courses = []
         self.students = Students(self)
@@ -10,6 +11,8 @@ class School:
 
     def get_courses(self):
         return self.courses
+
+
 
     def add_course(self, course):
         if course not in self.courses:
