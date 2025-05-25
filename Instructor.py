@@ -5,6 +5,11 @@ class Instructor:
         self.password = password
         self.school = school
         self.instructors_course = []
+        self.name= ""
+
+
+    def set_name(self, name):
+        self.name = name
 
     def check_password(self, password):
         return password == self.password
@@ -21,6 +26,7 @@ class Instructor:
 
         self.instructors_course.append(course)
         self.school.add_course(course)
+        return f"{name} course created successfully"
 
 
     def get_student_doing_course(self, name, point):
@@ -54,3 +60,19 @@ class Instructor:
                     if course.getCourse() == course_name:
                         course.set_grade(grade)
 
+
+
+    def to_dict(self):
+        return {
+            "email": self.email,
+            "password": self.password,
+            "name": self.name,
+            "instructors_course": [course.to_dict() for course in self.instructors_course]
+        }
+
+    @classmethod
+    def from_dict(cls, data, school):
+        instructor = cls(data["email"], data["password"], school)
+        instructor.set_name(data["name"])
+        instructor.instructors_course = [Course.from_dict(c) for c in data["instructors_course"]]
+        return instructor

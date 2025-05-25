@@ -9,16 +9,13 @@ class Students:
             raise ValueError("User already registered")
         stud = Student(email, password, self.school)
         self.school.add_student(stud)
+        return "Registered successfully"
 
     def __check_student(self, email):
-        check = False
-        for s in self.school.get_students():
-            if s.email == email:
-                check = True
-        for instructor in self.school.get_instructors():
-            if instructor.email == email:
-                check = True
-        return check
+        for user in self.school.get_students() + self.school.get_instructors():
+            if user.email == email:
+                return True
+        return False
 
     def login(self, email, password):
         if self.__check_student(email):

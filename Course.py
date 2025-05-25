@@ -1,9 +1,9 @@
 class Course:
     def __init__(self):
         self.course = ""
-        self.point = 0
+        self.point = None
         self.student_doing_this_course = []
-        self.grade =0
+        self.grade = None
 
 
     def get_grade(self):
@@ -24,9 +24,33 @@ class Course:
     def setPoint(self,point):
         self.point = point
 
+    def get_student_doing_this_course(self):
+        return self.student_doing_this_course
+
+
+    def set_student_doing_this_course(self,student_doing_this_course):
+        self.student_doing_this_course = student_doing_this_course
+
 
     def __eq__(self, other):
         if not isinstance(other, Course):
             return False
-        return self.course == other.course and self.point == other.point and self.student_doing_this_course == other.student_doing_this_course
+        return self.course == other.course and self.point == other.point
 
+
+    def to_dict(self):
+        return {
+            "course": self.course,
+            "point": self.point,
+            "grade": self.grade,
+            "student_doing_this_course": self.student_doing_this_course
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        course = cls()
+        course.setCourse(data["course"])
+        course.setPoint(data["point"])
+        course.set_grade(data.get("grade", None))
+        course.set_student_doing_this_course(data.get("student_doing_this_course"))
+        return course
