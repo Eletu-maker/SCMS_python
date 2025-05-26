@@ -3,7 +3,7 @@ from School import School
 
 
 def main():
-    school = School()
+    school =  School.load_from_file() or School()
     stud = school.students
     inst = school.instructors
     while True:
@@ -120,7 +120,7 @@ def main():
 
         except ValueError as e:
             print(e)
-
+        school.save_to_file()
 
 
 
